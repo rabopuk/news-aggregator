@@ -52,4 +52,8 @@ export const renderCards = (data, list) => {
 // const imageUrls = dataNews.map(news => news.urlToImage);
 // const images = await loadImages(imageUrls);
 
+<<<<<<< HEAD
+=======
+// // Теперь все картинки загружены, и вы можете отобразить их
+>>>>>>> 505cdc8802f54f2ef82dac40933767b6ecc6a9e8
 // images.forEach(img => document.body.appendChild(img));
