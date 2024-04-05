@@ -1,6 +1,8 @@
 export const fetchRequest = async (url, postfix, apiKey, {
   method = 'GET',
 }) => {
+  console.log('fetchRequest called');
+
   try {
     const options = {
       method,
@@ -26,20 +28,20 @@ export const fetchRequest = async (url, postfix, apiKey, {
 
 // {
 //   "status": "ok",
-//     "totalResults": num,
+//     "totalResults": n,
 //       "articles": [
 //         {
 //           "source": {
 //             "id": ""
 //             "name": ""
 //           },
-//           "author": "author",
-//           "title": "title",
-//           "description": "description",
-//           "url": "url",
-//           "urlToImage": "urlToImage",
-//           "publishedAt": "publishedAt",
-//           "content": "content"
+//           "author": "",
+//           "title": "",
+//           "description": "",
+//           "url": "",
+//           "urlToImage": "",
+//           "publishedAt": "",
+//           "content": ""
 //         }
 //       ]
 // };

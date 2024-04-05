@@ -33,3 +33,23 @@ export const renderCards = (data, list) => {
     list.append(card);
   });
 };
+
+
+// const loadImages = async (imageUrls) => {
+//   const loadImg = (src) => new Promise((resolve, reject) => {
+//     const img = new Image();
+//     img.src = src;
+//     img.onload = () => resolve(img);
+//     img.onerror = reject;
+//   });
+
+//   const promises = imageUrls.map(loadImg);
+//   const images = await Promise.all(promises);
+
+//   return images;
+// };
+
+// const imageUrls = dataNews.map(news => news.urlToImage);
+// const images = await loadImages(imageUrls);
+
+// images.forEach(img => document.body.appendChild(img));
