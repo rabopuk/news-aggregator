@@ -2,7 +2,7 @@ const createCard = data => {
   const card = document.createElement('li');
   card.classList.add('news-item');
   card.innerHTML = `
-    <img src="${data.urlToImage}"
+    <img src="${data.urlToImage || ''}"
       alt="${data.title}"
       class="news-image">
     <h3 class="news-title">
@@ -52,8 +52,4 @@ export const renderCards = (data, list) => {
 // const imageUrls = dataNews.map(news => news.urlToImage);
 // const images = await loadImages(imageUrls);
 
-<<<<<<< HEAD
-=======
-// // Теперь все картинки загружены, и вы можете отобразить их
->>>>>>> 505cdc8802f54f2ef82dac40933767b6ecc6a9e8
 // images.forEach(img => document.body.appendChild(img));

@@ -1,30 +1,24 @@
-export const fetchRequest = async (url, postfix, apiKey, {
-  method = 'GET',
-}) => {
-  console.log('fetchRequest called');
+export const fetchRequest =
+  async (url, postfix, { method = 'GET' } = {}) => {
+    try {
+      const options = {
+        method,
+      };
 
-  try {
-    const options = {
-      method,
-      headers: {
-        'X-Api-Key': apiKey,
-      },
-    };
+      const response = await fetch(`${url}${postfix}`, options);
 
-    const response = await fetch(`${url}${postfix}`, options);
+      if (response.ok) {
+        const data = await response.json();
 
-    if (response.ok) {
-      const data = await response.json();
+        return data;
+      }
 
-      return data;
+      throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+    } catch (error) {
+      console.error('Ошибка:', error.message);
+      throw error;
     }
-
-    throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
-  } catch (error) {
-    console.error('Ошибка:', error.message);
-    throw error;
-  }
-};
+  };
 
 // {
 //   "status": "ok",

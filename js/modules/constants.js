@@ -1,6 +1,7 @@
 export const getConstant = () => {
   const API_KEY = 'd08ef160b1a9499789dc754a740e718c';
   const API_URL = 'https://newsapi.org/v2/';
+
   const DEFAULT_COUNTRY = 'us';
 
   const COUNTRIES = {
@@ -13,8 +14,8 @@ export const getConstant = () => {
     'lv': 'Латвия',
     'lt': 'Литва',
   };
-  const titleContainer = document.querySelector('.title');
-  const mainTitle = document.querySelector('.main-title');
+
+  const main = document.querySelector('main');
   const newsList = document.querySelector('.news-list');
   const countrySelect = document.querySelector('.js-choice');
   const searchForm = document.querySelector('.form-search');
@@ -25,8 +26,7 @@ export const getConstant = () => {
     API_URL,
     DEFAULT_COUNTRY,
     COUNTRIES,
-    titleContainer,
-    mainTitle,
+    main,
     newsList,
     countrySelect,
     searchForm,
