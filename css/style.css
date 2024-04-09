@@ -196,6 +196,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .news-item {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   padding: 10px 10px 16px;
@@ -297,14 +299,25 @@ input[type="search"]::-webkit-search-cancel-button {
 /* прелоад */
 
 .preload {
-  background-image: url('../image/preload.svg');
-  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.preload img {
   width: 180px;
   height: 180px;
-  margin: 0 auto;
   animation: rotating 2s linear infinite;
-
+  z-index: 20;
 }
+
 
 /* поиск */
 

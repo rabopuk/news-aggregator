@@ -1,28 +1,79 @@
+const createPreloader = () => {
+  const overlay = document.createElement('div');
+  overlay.classList.add('preload');
+
+  const img = document.createElement('img');
+  img.src = '/img/Vector.svg';
+  overlay.append(img);
+
+  const show = (parentElement) => {
+    parentElement.append(overlay);
+  };
+
+  const remove = () => {
+    overlay.remove();
+  };
+
+  return { show, remove };
+};
+
 const createCard = data => {
   const card = document.createElement('li');
   card.classList.add('news-item');
-  card.innerHTML = `
-    <img src="${data.urlToImage || ''}"
-      alt="${data.title}"
-      class="news-image">
-    <h3 class="news-title">
-      <a href="${data.url}" class="news-link">
-        ${data.title}
-      </a>
-    </h3>
-    <p class="news-description">
-      ${data.description}
-    </p>
-    <div class="news-footer">
-      <time class="news-datetime" datetime="${data.publishedAt}">
-        <span class="news-date">
-          ${new Date(data.publishedAt).toLocaleDateString()}
-        </span>
-        ${new Date(data.publishedAt).toLocaleTimeString()}
-      </time>
-      <p class="news-author">${data.author ?? ''}</p>
-    </div>
-  `;
+
+  const img = document.createElement('img');
+
+  const preload = createPreloader();
+
+  img.onload = () => {
+    preload.remove();
+  };
+
+  img.onerror = () => {
+    preload.remove();
+    img.src = '../../img/unsplash_xsGxhtAsfSA.jpg';
+  };
+
+  img.src = data.urlToImage || '';
+
+  img.alt = data.title;
+  img.classList.add('news-image');
+
+  preload.show(card);
+
+  card.append(img);
+
+  const title = document.createElement('h3');
+  title.classList.add('news-title');
+  const link = document.createElement('a');
+  link.href = data.url;
+  link.classList.add('news-link');
+  link.textContent = data.title;
+  title.append(link);
+
+  const description = document.createElement('p');
+  description.classList.add('news-description');
+  description.textContent = data.description;
+
+  const footer = document.createElement('div');
+  footer.classList.add('news-footer');
+
+  const time = document.createElement('time');
+  time.classList.add('news-datetime');
+  time.datetime = data.publishedAt;
+  const date = document.createElement('span');
+  date.classList.add('news-date');
+  date.textContent = new Date(data.publishedAt).toLocaleDateString();
+  time.append(date);
+  time.append(new Date(data.publishedAt).toLocaleTimeString());
+
+  const author = document.createElement('p');
+  author.classList.add('news-author');
+  author.textContent = data.author ?? '';
+
+  footer.append(time, author);
+
+  card.append(title, description, footer);
 
   return card;
 };
@@ -33,23 +84,3 @@ export const renderCards = (data, list) => {
     list.append(card);
   });
 };
-
-
-// const loadImages = async (imageUrls) => {
-//   const loadImg = (src) => new Promise((resolve, reject) => {
-//     const img = new Image();
-//     img.src = src;
-//     img.onload = () => resolve(img);
-//     img.onerror = reject;
-//   });
-
-//   const promises = imageUrls.map(loadImg);
-//   const images = await Promise.all(promises);
-
-//   return images;
-// };
-
-// const imageUrls = dataNews.map(news => news.urlToImage);
-// const images = await loadImages(imageUrls);
-
-// images.forEach(img => document.body.appendChild(img));

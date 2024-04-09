@@ -3,7 +3,7 @@ import { getConstant } from './constants.js';
 import { fetchRequest } from './fetchRequest.js';
 import { createSection } from './layout.js';
 
-const handleSubmit = async e => {
+const handleSearchSubmit = async e => {
   e.preventDefault();
 
   const {
@@ -11,18 +11,15 @@ const handleSubmit = async e => {
     API_URL,
     DEFAULT_COUNTRY,
     main,
-    countrySelect,
     searchInputField,
   } = getConstant();
 
   const searchInput = searchInputField.value.trim();
 
-  const country = countrySelect.value || DEFAULT_COUNTRY;
-
   const searchPostfix =
     `everything?q=${searchInput}&pageSize=8&apiKey=${API_KEY}`;
   const headlinesPostfix =
-    `top-headlines?country=${country}&pageSize=4&apiKey=${API_KEY}`;
+    `top-headlines?country=${DEFAULT_COUNTRY}&pageSize=4&apiKey=${API_KEY}`;
 
   const searchPromise = searchInput ?
     fetchRequest(API_URL, searchPostfix) :
@@ -36,20 +33,29 @@ const handleSubmit = async e => {
   main.innerHTML = '';
 
   if (searchInput && searchResults) {
-    const searchSection = createSection(`По вашему запросу “${searchInput}” показано ${searchResults.articles.length} результатов`);
+    const searchSection =
+      createSection(`По вашему запросу “${searchInput}” показано
+        ${searchResults.articles.length} результатов`);
+
     main.append(searchSection);
+
     const searchList = searchSection.querySelector('.news-list');
+
     renderCards(searchResults, searchList);
   }
 
-  const freshNewsSection = createSection(`Свежие новости ${country.toUpperCase()}`);
+  const freshNewsSection =
+    createSection(`Свежие новости ${DEFAULT_COUNTRY.toUpperCase()}`);
+
   main.append(freshNewsSection);
+
   const freshNewsList = freshNewsSection.querySelector('.news-list');
+
   renderCards(headlines, freshNewsList);
 };
 
 export const initListeners = () => {
   const { searchForm } = getConstant();
 
-  searchForm.addEventListener('submit', handleSubmit);
+  searchForm.addEventListener('submit', handleSearchSubmit);
 };

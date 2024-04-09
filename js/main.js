@@ -12,7 +12,6 @@ const init = async () => {
     main,
   } = getConstant();
 
-
   const headlinesPostfix =
     `top-headlines?country=${DEFAULT_COUNTRY}&pageSize=8&apiKey=${API_KEY}`;
   const dataNews = await fetchRequest(API_URL, headlinesPostfix);
