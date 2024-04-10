@@ -6,7 +6,7 @@ const createPreloader = () => {
   img.src = '/img/Vector.svg';
   overlay.append(img);
 
-  const show = (parentElement) => {
+  const show = parentElement => {
     parentElement.append(overlay);
   };
 

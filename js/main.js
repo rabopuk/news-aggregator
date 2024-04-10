@@ -4,13 +4,15 @@ import { fetchRequest } from './modules/fetchRequest.js';
 import { createSection } from './modules/layout.js';
 import { initListeners } from './modules/listeners.js';
 
-const init = async () => {
+export const init = async () => {
   const {
     API_URL,
     API_KEY,
     DEFAULT_COUNTRY,
     main,
   } = getConstant();
+
+  main.innerHTML = '';
 
   const headlinesPostfix =
     `top-headlines?country=${DEFAULT_COUNTRY}&pageSize=8&apiKey=${API_KEY}`;
@@ -23,9 +25,11 @@ const init = async () => {
   const newsList = newsSection.querySelector('.news-list');
 
   renderCards(dataNews, newsList);
-  initListeners();
 };
 
 (() => {
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', () => {
+    init();
+    initListeners();
+  });
 })();

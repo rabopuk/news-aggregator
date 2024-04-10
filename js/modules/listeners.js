@@ -1,5 +1,6 @@
+import { init } from '../main.js';
 import { renderCards } from './card.js';
-import { getConstant } from './constants.js';
+import { getConstant, setDefaultCountry } from './constants.js';
 import { fetchRequest } from './fetchRequest.js';
 import { createSection } from './layout.js';
 
@@ -52,10 +53,26 @@ const handleSearchSubmit = async e => {
   const freshNewsList = freshNewsSection.querySelector('.news-list');
 
   renderCards(headlines, freshNewsList);
+
+  searchInputField.value = '';
 };
 
 export const initListeners = () => {
-  const { searchForm } = getConstant();
+  const { logo, searchForm, countrySelect } = getConstant();
+
+  logo.addEventListener('click', init);
 
   searchForm.addEventListener('submit', handleSearchSubmit);
+
+  countrySelect.addEventListener('change', ({ target }) => {
+    const country = target.value;
+
+    if (country === '') {
+      setDefaultCountry('us');
+    } else {
+      setDefaultCountry(country);
+    }
+
+    init();
+  });
 };
