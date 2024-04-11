@@ -11,6 +11,7 @@ export const createSection = (title) => {
     <div class="news">
       <ul class="news-list"></ul>
     </div>
+
   `;
 
   return section;

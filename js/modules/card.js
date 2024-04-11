@@ -1,25 +1,19 @@
-const createPreloader = () => {
-  const overlay = document.createElement('div');
-  overlay.classList.add('preload');
+export const createPreloader = () => {
+  const preloader = document.createElement('div');
+  preloader.classList.add('preload');
+  preloader.innerHTML = '<img src="../../img/Vector.svg" alt="Loading...">';
 
-  const img = document.createElement('img');
-  img.src = '/img/Vector.svg';
-  overlay.append(img);
-
-  const show = parentElement => {
-    parentElement.append(overlay);
-  };
-
-  const remove = () => {
-    overlay.remove();
-  };
-
-  return { show, remove };
+  return preloader;
 };
 
 const createCard = data => {
   const card = document.createElement('li');
   card.classList.add('news-item');
+
+  const imgWrapper = document.createElement('div');
+  imgWrapper.style.position = 'relative';
+  imgWrapper.style.width = '100%';
+  imgWrapper.style.height = '200px';
 
   const img = document.createElement('img');
 
@@ -34,14 +28,17 @@ const createCard = data => {
     img.src = '../../img/unsplash_xsGxhtAsfSA.jpg';
   };
 
-  img.src = data.urlToImage || '';
+  if (data.urlToImage) {
+    img.src = data.urlToImage;
+  } else {
+    preload.remove();
+  }
 
   img.alt = data.title;
   img.classList.add('news-image');
 
-  preload.show(card);
-
-  card.append(img);
+  imgWrapper.append(preload, img);
+  card.append(imgWrapper);
 
   const title = document.createElement('h3');
   title.classList.add('news-title');
@@ -78,9 +75,9 @@ const createCard = data => {
   return card;
 };
 
-export const renderCards = (data, list) => {
-  data.articles.forEach(article => {
+export const renderCards = (data, container) => {
+  data.articles.forEach((article) => {
     const card = createCard(article);
-    list.append(card);
+    container.append(card);
   });
 };
