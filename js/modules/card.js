@@ -28,7 +28,7 @@ const createCard = data => {
     img.src = '../../img/unsplash_xsGxhtAsfSA.jpg';
   };
 
-  if (data.title === '[Removed]') {
+  if (data.title === '[Removed]' || !data.urlToImage) {
     img.src = '../../img/unsplash_xsGxhtAsfSA.jpg';
     preload.remove();
   } else if (data.urlToImage) {
