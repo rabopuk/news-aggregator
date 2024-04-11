@@ -28,7 +28,10 @@ const createCard = data => {
     img.src = '../../img/unsplash_xsGxhtAsfSA.jpg';
   };
 
-  if (data.urlToImage) {
+  if (data.title === '[Removed]') {
+    img.src = '../../img/unsplash_xsGxhtAsfSA.jpg';
+    preload.remove();
+  } else if (data.urlToImage) {
     img.src = data.urlToImage;
   } else {
     preload.remove();
